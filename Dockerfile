@@ -3,6 +3,7 @@ FROM python:3.12-slim-bullseye
 ENV TZ=Asia/Taipei
 
 COPY requirements.txt requirements.txt
+COPY ./src/ app/src/
 
 RUN apt-get update && \
     apt-get install git zsh vim curl wget zip procps gcc python3-dev -y && \
@@ -11,3 +12,8 @@ RUN apt-get update && \
 
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
+
+# Prefect config
+RUN prefect config set PREFECT_LOGGING_LOG_PRINTS=True
+
+ENV PYTHONPATH="$PYTHONPATH:/app/src"
