@@ -44,6 +44,7 @@
   "postCreateCommand": "sh ./.devcontainer/postCreateCommand.sh",
   "runArgs": [
     "--name",
-    "prefect-demo"
+    "prefect-demo",
+    "--network=host"
   ]
 }
