@@ -28,8 +28,8 @@ def l_db2(df: pd.DataFrame) -> None:
     print(df)
     print("===============")
 
-@flow(name="f_02_parallel")
-def f_02_parallel() -> None:
+@flow(name="f_02_async_task")
+def f_02_async_task() -> None:
     df1 = e_data_source_1.submit()
     df2 = e_data_source_2.submit()
     df = t_concat.submit(
@@ -39,4 +39,4 @@ def f_02_parallel() -> None:
     l_db2.submit(df, wait_for=[df])
 
 if __name__ == "__main__":
-    f_02_parallel()
+    f_02_async_task()
