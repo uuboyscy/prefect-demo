@@ -1,4 +1,13 @@
-import pandas as pd
+"""
+prefect deployment build \
+	src/flow/f_03_map.py:f_03_map \
+	-n docker \
+	-p test \
+	-q docker-deplymet \
+  -sb "github/github-prefect-demo" \
+  -ib "docker-container/demo-docker-container" \
+  -a
+"""
 from prefect import flow, task
 
 @task

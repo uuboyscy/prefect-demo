@@ -1,3 +1,13 @@
+"""
+prefect deployment build \
+	src/flow/f_02_async_task.py:f_02_async_task \
+	-n docker \
+	-p test \
+	-q docker-deplymet \
+  -sb "github/github-prefect-demo" \
+  -ib "docker-container/demo-docker-container" \
+  -a
+"""
 import pandas as pd
 from prefect import flow, task
 

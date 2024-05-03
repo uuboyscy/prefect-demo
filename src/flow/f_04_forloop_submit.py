@@ -1,3 +1,13 @@
+"""
+prefect deployment build \
+	src/flow/f_04_forloop_submit.py:f_04_forloop_submit \
+	-n docker \
+	-p test \
+	-q docker-deplymet \
+  -sb "github/github-prefect-demo" \
+  -ib "docker-container/demo-docker-container" \
+  -a
+"""
 import pandas as pd
 from prefect import flow, task
 
