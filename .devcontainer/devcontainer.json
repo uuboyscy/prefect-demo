@@ -34,10 +34,10 @@
       }
     }
   },
-  // "mounts": [
-  //   "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/root/.ssh_mounted,type=bind,consistency=cached",
-  //   "source=${localEnv:HOME}${localEnv:USERPROFILE}/.gitconfig,target=/root/.gitconfig_mounted,type=bind,consistency=cached"
-  // ],
+  "mounts": [
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/root/.ssh_mounted,type=bind,consistency=cached",
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.gitconfig,target=/root/.gitconfig_mounted,type=bind,consistency=cached"
+  ],
   "remoteEnv": {
     "PYTHONPATH": "/workspaces/prefect-demo/src"
   },
