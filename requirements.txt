@@ -4,5 +4,6 @@ jupyter
 pandas
 pendulum
 prefect
+prefect-github
 requests
 sqlalchemy
