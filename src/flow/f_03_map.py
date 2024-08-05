@@ -31,4 +31,17 @@ def f_03_map() -> None:
     print_something_separately.map(result)
 
 if __name__ == "__main__":
-    f_03_map()
+    from prefect_github import GitHubRepository
+    # f_03_map()
+
+    f_03_map.from_source(
+        source=GitHubRepository.load("github-prefect-demo"),
+        entrypoint="src/flow/f_03_map.py:f_03_map",
+    ).deploy(
+        name="test-deploy",
+        tags=["test", "project_3"],
+        work_pool_name="test-docker",
+        job_variables=dict(pull_policy="Never"),
+        # parameters=dict(name="Marvin"),
+        cron="*/10 * * * *"
+    )

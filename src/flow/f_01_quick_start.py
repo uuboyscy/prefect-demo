@@ -48,38 +48,17 @@ def f_01_quick_start() -> None:
 
 if __name__ == "__main__":
     # f_01_quick_start()
-    from prefect.deployments import Deployment
     from prefect_github import GitHubRepository
-    from prefect.infrastructure import DockerContainer
-    from prefect.filesystems import GitHub
 
-    # storage = GitHubRepository.load("github-prefect-demo")
-    # docker_container = DockerContainer.load("demo-docker-container")
-
-    # deployment = Deployment.build_from_flow(
-    #     flow=f_01_quick_start,
-    #     name="test-deployment",
-    #     version="2",
-    #     tags=["python-deploy"],
-    #     entrypoint="src/flow/f_01_quick_start.py:f_01_quick_start",
-    #     storage=storage,
-    #     infrastructure=docker_container,
-    #     # job_variables=dict("env.PREFECT_LOGGING_LEVEL"="DEBUG"),
-    # )
-    # deployment.apply()
-    # f_01_quick_start.deploy(
-    #     name="test-deploy",
-    #     work_pool_name="test-docker",
-    #     push=False,
-    # )
 
     f_01_quick_start.from_source(
-        # source=GitHubRepository.load("github-prefect-demo"),
-        source=GitHub.load("github-repo"),
+        source=GitHubRepository.load("github-prefect-demo"),
         entrypoint="src/flow/f_01_quick_start.py:f_01_quick_start",
     ).deploy(
         name="test-deploy",
+        tags=["test", "project_1"],
         work_pool_name="test-docker",
         job_variables=dict(pull_policy="Never"),
         # parameters=dict(name="Marvin"),
+        cron="1 * * * *"
     )

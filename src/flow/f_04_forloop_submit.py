@@ -33,4 +33,17 @@ def f_04_forloop_submit() -> None:
         print_something_separately.submit(each_str)
 
 if __name__ == "__main__":
-    f_04_forloop_submit()
+    from prefect_github import GitHubRepository
+    # f_04_forloop_submit()
+
+    f_04_forloop_submit.from_source(
+        source=GitHubRepository.load("github-prefect-demo"),
+        entrypoint="src/flow/f_04_forloop_submit.py:f_04_forloop_submit",
+    ).deploy(
+        name="test-deploy",
+        tags=["test", "project_4"],
+        work_pool_name="test-docker",
+        job_variables=dict(pull_policy="Never"),
+        # parameters=dict(name="Marvin"),
+        cron="*/30 0-8,9-15,16-23 * * *"
+    )

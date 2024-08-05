@@ -49,15 +49,16 @@ def f_02_async_task() -> None:
     l_db2.submit(df, wait_for=[df])
 
 if __name__ == "__main__":
-    from prefect.filesystems import GitHub
+    from prefect_github import GitHubRepository
     # f_02_async_task()
     f_02_async_task.from_source(
-        # source=GitHubRepository.load("github-prefect-demo"),
-        source=GitHub.load("github-repo"),
+        source=GitHubRepository.load("github-prefect-demo"),
         entrypoint="src/flow/f_02_async_task.py:f_02_async_task",
     ).deploy(
         name="test-deploy",
+        tags=["test", "project_2"],
         work_pool_name="test-docker",
         job_variables=dict(pull_policy="Never"),
         # parameters=dict(name="Marvin"),
+        cron="*/5 * * * *"
     )
