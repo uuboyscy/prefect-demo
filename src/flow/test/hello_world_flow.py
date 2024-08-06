@@ -10,33 +10,16 @@ def hello_world(name: str = "world", goodbye: bool = False):
 
 
 if __name__ == "__main__":
-
-    # 本來只有這樣寫
-    # hello_world(goodbye=True)
-
-    # # 現在要測試可以這樣寫
-    # hello_world.serve(name="my-first-deployment",
-    #                   tags=["onboarding"],
-    #                   parameters={"goodbye": True},
-    #                   interval=60)
-
-    # hello_world.deploy(
-    #     name="test-deployment",
-    #     # image="uuboyscy/docker-tutorial",
-    #     work_pool_name="test-docker",
-    # )
-
-    from prefect.deployments import Deployment
     from prefect_github import GitHubRepository
 
-    storage = GitHubRepository.load("github-prefect-demo")
-
-    deployment = Deployment.build_from_flow(
-        flow=hello_world,
-        name="test-deployment",
-        version="2",
-        tags=["python-deploy"],
-        storage=storage,
-        # job_variables=dict("env.PREFECT_LOGGING_LEVEL"="DEBUG"),
+    hello_world.from_source(
+        source=GitHubRepository.load("github-prefect-demo"),
+        entrypoint="src/flow/test/hello_world_flow.py:hello_world",
+    ).deploy(
+        name="test-deploy",
+        tags=["test", "project_1"],
+        work_pool_name="test-subproc",
+        job_variables=dict(pull_policy="Never"),
+        # parameters=dict(name="Marvin"),
+        cron="1 * * * *"
     )
-    deployment.apply()
