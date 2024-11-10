@@ -1,13 +1,3 @@
-"""
-prefect deployment build \
-	src/flow/f_01_quick_start.py:f_01_quick_start \
-	-n docker \
-	-p test \
-	-q docker-deplymet \
-  -sb "github/github-prefect-demo" \
-  -ib "docker-container/demo-docker-container" \
-  -a
-"""
 import pandas as pd
 from prefect import flow, task
 
@@ -38,27 +28,27 @@ def l_db2(df: pd.DataFrame) -> None:
     print(df)
     print("===============")
 
-@flow(name="f_01_quick_start")
-def f_01_quick_start() -> None:
-    df1 = e_data_source_1()
-    df2 = e_data_source_2()
-    df = t_concat(df1, df2)
-    l_db1(df)
-    l_db2(df)
+@flow(name="f_02_async_task_flow")
+def f_02_async_task_flow() -> None:
+    df1 = e_data_source_1.submit()
+    df2 = e_data_source_2.submit()
+    df = t_concat.submit(
+        df1, df2, wait_for=[df1, df2],
+    )
+    l_db1.submit(df, wait_for=[df])
+    l_db2.submit(df, wait_for=[df])
 
 if __name__ == "__main__":
-    # f_01_quick_start()
     from prefect_github import GitHubRepository
-
-
-    f_01_quick_start.from_source(
+    # f_02_async_task_flow()
+    f_02_async_task_flow.from_source(
         source=GitHubRepository.load("github-prefect-demo"),
-        entrypoint="src/flow/f_01_quick_start.py:f_01_quick_start",
+        entrypoint="src/flow/f_02_async_task_flow.py:f_02_async_task_flow",
     ).deploy(
         name="test-deploy",
-        tags=["test", "project_1"],
+        tags=["test", "project_2"],
         work_pool_name="test-docker",
         job_variables=dict(pull_policy="Never"),
         # parameters=dict(name="Marvin"),
-        cron="1 * * * *"
+        cron="*/5 * * * *"
     )

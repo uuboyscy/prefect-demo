@@ -2,7 +2,7 @@ from prefect import flow
 
 
 @flow(log_prints=True)
-def hello_world(name: str = "world", goodbye: bool = False):
+def hello_world_flow(name: str = "world", goodbye: bool = False):
     print(f"Hello {name} from Prefect! 🤗")
 
     if goodbye:
@@ -12,9 +12,9 @@ def hello_world(name: str = "world", goodbye: bool = False):
 if __name__ == "__main__":
     from prefect_github import GitHubRepository
 
-    hello_world.from_source(
+    hello_world_flow.from_source(
         source=GitHubRepository.load("github-prefect-demo"),
-        entrypoint="src/flow/test/hello_world_flow.py:hello_world",
+        entrypoint="src/flow/test/hello_world_flow_flow.py:hello_world_flow",
     ).deploy(
         name="test-deploy",
         tags=["test", "project_1"],

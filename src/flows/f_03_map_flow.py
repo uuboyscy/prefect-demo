@@ -1,14 +1,3 @@
-"""
-prefect deployment build \
-	src/flow/f_04_forloop_submit.py:f_04_forloop_submit \
-	-n docker \
-	-p test \
-	-q docker-deplymet \
-  -sb "github/github-prefect-demo" \
-  -ib "docker-container/demo-docker-container" \
-  -a
-"""
-import pandas as pd
 from prefect import flow, task
 
 @task
@@ -25,25 +14,24 @@ def print_something_separately(something: str | list) -> None:
     print(something)
     print("======")
 
-@flow(name="f_04_forloop_submit")
-def f_04_forloop_submit() -> None:
+@flow(name="f_03_map_flow")
+def f_03_map_flow() -> None:
     some_str = generate_some_str()
     result = do_something(some_str)
-    for each_str in result:
-        print_something_separately.submit(each_str)
+    print_something_separately.map(result)
 
 if __name__ == "__main__":
     from prefect_github import GitHubRepository
-    # f_04_forloop_submit()
+    # f_03_map_flow()
 
-    f_04_forloop_submit.from_source(
+    f_03_map_flow.from_source(
         source=GitHubRepository.load("github-prefect-demo"),
-        entrypoint="src/flow/f_04_forloop_submit.py:f_04_forloop_submit",
+        entrypoint="src/flow/f_03_map_flow.py:f_03_map_flow",
     ).deploy(
         name="test-deploy",
-        tags=["test", "project_4"],
+        tags=["test", "project_3"],
         work_pool_name="test-docker",
         job_variables=dict(pull_policy="Never"),
         # parameters=dict(name="Marvin"),
-        cron="*/30 0-8,9-15,16-23 * * *"
+        cron="*/10 * * * *"
     )
