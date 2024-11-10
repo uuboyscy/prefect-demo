@@ -1,5 +1,8 @@
 from prefect import flow, task
 
+from utils.prefect_utility import generate_flow_name
+
+
 @task
 def generate_some_str() -> str:
     return "HELLO"
@@ -14,7 +17,7 @@ def print_something_separately(something: str | list) -> None:
     print(something)
     print("======")
 
-@flow(name="f_03_map_flow")
+@flow(name=generate_flow_name())
 def f_03_map_flow() -> None:
     some_str = generate_some_str()
     result = do_something(some_str)

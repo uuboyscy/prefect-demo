@@ -1,6 +1,9 @@
 import pandas as pd
 from prefect import flow, task
 
+from utils.prefect_utility import generate_flow_name
+
+
 @task
 def e_data_source_1() -> pd.DataFrame:
     print("Getting df1.")
@@ -28,7 +31,7 @@ def l_db2(df: pd.DataFrame) -> None:
     print(df)
     print("===============")
 
-@flow(name="f_02_async_task_flow")
+@flow(name=generate_flow_name())
 def f_02_async_task_flow() -> None:
     df1 = e_data_source_1.submit()
     df2 = e_data_source_2.submit()
