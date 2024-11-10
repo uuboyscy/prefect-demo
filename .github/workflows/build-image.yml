@@ -1,9 +1,7 @@
 name: Build image
 
 on:
-  # workflow_call:
-  push:
-    branches: [main]
+  workflow_call:
 
 jobs:
   build-image:
