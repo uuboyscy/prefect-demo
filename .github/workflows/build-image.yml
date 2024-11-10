@@ -5,10 +5,6 @@ on:
   push:
     branches: [main]
 
-permissions:
-  id-token: write
-  contents: read
-
 jobs:
   build-image:
     runs-on: ubuntu-latest
@@ -24,7 +20,7 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GHCR_TOKEN }}
 
-    - name: 'Docker build'
+    - name: Docker build
       run: |
-        docker build -t ghcr.io/uuboyscy/prefect-demo:latest .
-        docker push ghcr.io/uuboyscy/prefect-demo:latest
+        docker build -t ghcr.io/${{ github.actor }}/${{ github.event.repository.name }}:latest .
+        docker push ghcr.io/${{ github.actor }}/${{ github.event.repository.name }}:latest
