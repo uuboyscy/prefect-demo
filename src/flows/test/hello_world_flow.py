@@ -23,14 +23,14 @@ if __name__ == "__main__":
     Start a temporary local server of worker to execute flows submitted from Prefect cloud.
     It comes with a development named "my-first-deployment" which can be found on UI.
     """
-    hello_world_flow.serve(
-        name="my-first-deployment",  # Deployment name. It create a temporary deployment.
-        tags=["onboarding"],  # Filtering when searching on UI.
-        parameters={
-            "goodbye": True
-        },  # Overwrite default parameters defined on hello_world_flow. Only for this deployment.
-        interval=60,  # Like crontab, "* * * * *"
-    )
+    # hello_world_flow.serve(
+    #     name="my-first-deployment",  # Deployment name. It create a temporary deployment.
+    #     tags=["onboarding"],  # Filtering when searching on UI.
+    #     parameters={
+    #         "goodbye": True
+    #     },  # Overwrite default parameters defined on hello_world_flow. Only for this deployment.
+    #     interval=60,  # Like crontab, "* * * * *"
+    # )
 
     """
     Deploy a flow to Prefect cloud.
@@ -38,7 +38,7 @@ if __name__ == "__main__":
     from prefect_github import GitHubRepository
     hello_world_flow.from_source(
         source=GitHubRepository.load("github-repository-uuboyscy"),
-        entrypoint="src/flows/sample/hello_world_flow.py:hello_world_flow",
+        entrypoint="src/flows/test/hello_world_flow.py:hello_world_flow",
     ).deploy(
         name="main",  # Deployment name.
         tags=["dev", "sample"],
