@@ -2,6 +2,13 @@ name: Build image
 
 on:
   workflow_call:
+    inputs:
+      username:
+        required: true
+        type: string
+      password:
+        required: true
+        type: string
 
 jobs:
   build-image:
@@ -15,8 +22,8 @@ jobs:
       uses: docker/login-action@v3
       with:
         registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.GHCR_TOKEN }}
+        username: ${{ inputs.username }}
+        password: ${{ inputs.password }}
 
     - name: Docker build
       run: |

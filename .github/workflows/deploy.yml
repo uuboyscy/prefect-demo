@@ -10,6 +10,9 @@ jobs:
   build-image:
     name: Build Image
     uses: ./.github/workflows/build-image.yml
+    with:
+      username: ${{ github.actor }}
+      password: ${{ secrets.GHCR_TOKEN }}
 
   list-flows:
     needs: build-image
