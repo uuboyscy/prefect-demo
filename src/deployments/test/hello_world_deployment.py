@@ -5,7 +5,7 @@ if __name__ == "__main__":
     from prefect_github import GitHubRepository
 
     hello_world_flow.from_source(
-        source=GitHubRepository.load("github-prefect-demo"),
+        source=GitHubRepository.load("github-repository-uuboyscy"),
         entrypoint="src/flow/test/hello_world_flow_flow.py:hello_world_flow",
     ).deploy(
         name="test-deploy",
