@@ -12,5 +12,3 @@ chmod 755 /root/.ssh/config
 chmod 755 /root/.ssh/known_hosts
 
 git config --global --add safe.directory /workspaces/*
-
-zsh
