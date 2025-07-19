@@ -1,6 +1,6 @@
 # docker buildx build --platform linux/amd64 -t <image_name> .
 
-FROM python:3.13-slim-bullseye
+FROM python:3.12-slim-bullseye
 
 ENV TZ=Asia/Taipei
 
