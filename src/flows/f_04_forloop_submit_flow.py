@@ -1,7 +1,5 @@
 from prefect import flow, task
 
-from utils.prefect_utility import generate_flow_name
-
 
 @task
 def generate_some_str() -> str:
