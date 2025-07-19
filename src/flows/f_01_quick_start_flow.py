@@ -36,7 +36,7 @@ def l_db2(df: pd.DataFrame) -> None:
     print("===============")
 
 
-@flow(name=generate_flow_name())
+@flow()
 def f_01_quick_start_flow() -> None:
     df1 = e_data_source_1()
     df2 = e_data_source_2()
