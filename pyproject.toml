@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "prefect-demo-utils"
+version = "0.1.0"
+description = "Utility functions for my Prefect demo"
+requires-python = ">=3.10"
+authors = [{ name = "uuboyscy", email = "uuboyscy@uuboyscy.dev" }]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+packages = ["utils"]
+include-package-data = true
