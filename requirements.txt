@@ -3,7 +3,6 @@ bs4
 jupyter
 pandas
 pendulum
-prefect>=2,<3
-prefect-github
+prefect>=3,<4
 requests
 sqlalchemy
