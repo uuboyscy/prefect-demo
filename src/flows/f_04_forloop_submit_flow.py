@@ -1,3 +1,8 @@
+"""
+Install package on Prefect cloud
+package: git+https://github.com/uuboyscy/prefect-demo.git@prefect3
+"""
+
 from prefect import flow, task
 
 from utils.prefect_utility import generate_flow_name
