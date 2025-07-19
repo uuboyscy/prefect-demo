@@ -20,7 +20,7 @@ def print_something_separately(something: str | list) -> None:
     print("======")
 
 
-@flow(name=generate_flow_name())
+@flow()
 def f_04_forloop_submit_flow() -> None:
     some_str = generate_some_str()
     result = do_something(some_str)
